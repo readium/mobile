@@ -22,7 +22,7 @@ Readium Mobile is an SDK for ebooks, audiobooks and comics written in Swift &amp
 
 ## Codebase
 
-Readium Mobile is a modular project. The different modules are found in the following repositories: 
+Readium Mobile is a modular project, which follows the [Readium Architecture](https://github.com/readium/architecture) recommandations. The different modules are found in the following repositories: 
 
 ### Readium Mobile Android
 
