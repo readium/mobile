@@ -7,3 +7,4 @@
 * Highlights & annotations
 * Text to Speech (TTS)
 * Media overlays
+* W3C Audiobooks support
