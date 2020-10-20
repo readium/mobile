@@ -26,6 +26,8 @@ Readium Mobile is a modular project, which follows the [Readium Architecture](ht
 
 ### Readium Mobile Android
 
+The test app are set to SDK 29 (Q4 2020) but you should be able to support down to SDK 21.
+
 - [r2-shared-kotlin](https://github.com/readium/r2-shared-kotlin): shared models
 - [r2-streamer-kotlin](https://github.com/readium/r2-streamer-kotlin): streamer module
 - [r2-navigator-kotlin](https://github.com/readium/r2-navigator-kotlin): navigator module
@@ -39,6 +41,8 @@ A workspace aimed at easing the install of the project is provided in:
 - [r2-workspace-kotlin](https://github.com/readium/r2-workspace-kotlin)
 
 ### Readium Mobile iOS
+
+The toolkit is currently compliant with iOS 9 (Q4 2020); it will soon be upgraded to iOS 10+. 
 
 - [r2-shared-swift](https://github.com/readium/r2-shared-swift): shared models
 - [r2-streamer-swift](https://github.com/readium/r2-streamer-swift): streamer module
