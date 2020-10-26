@@ -15,7 +15,7 @@ The 2.0.0 introduces numerous new APIs in the Shared Models, Streamer and LCP li
 
 [This `r2-testapp-swift` commit](https://github.com/readium/r2-testapp-swift/commit/f2f7ed059c4159dfde0549968aa3c564b8278a16) showcases all the changes required to upgrade the Test App.
 
-[Please reach out on Slack](http://readium-slack.herokuapp.com/) if you have any issue migrating your app to Readium 2.0.0, after checking the [troubleshooting section](Troubleshooting).
+[Please reach out on Slack](http://readium-slack.herokuapp.com/) if you have any issue migrating your app to Readium 2.0.0, after checking the [troubleshooting section](#troubleshooting).
 
 ### Replacing the Parsers with `Streamer`
 
@@ -105,7 +105,7 @@ lcpService.contentProtection(with: CustomLCPAuthentication())
 
 #### Presenting a Protected Publication with a Navigator
 
-In case the credentials were incorrect or missing, the `Streamer` will still return a `Publication`, but in a "restricted" state. This allows reading apps importing publications by accessing their metadata without having the passphrase.
+In case the credentials were incorrect or missing, the `Streamer` will still return a `Publication`, but in a "restricted" state. This allows reading apps to import publications by accessing their metadata without having the passphrase.
 
 But if you need to present the publication with a Navigator, you will need to first check if the `Publication` is not restricted.
 
@@ -126,9 +126,9 @@ if !publication.isRestricted {
 
 #### Accessing an LCP License Information
 
-To check if a publication is protected with a DRM, you can use `publication.isProtected`.
+To check if a publication is protected with a known DRM, you can use `publication.isProtected`.
 
-If you need to access an LCP license's information, you can use the helper `publication.lcpLicense`, which will return the `LCPLicense` if the publication is protected with LCP. Alternatively, you can use `LCPService::retrieveLicense()` as before.
+If you need to access an LCP license's information, you can use the helper `publication.lcpLicense`, which will return the `LCPLicense` if the publication is protected with LCP and the passphrase was known. Alternatively, you can use `LCPService::retrieveLicense()` as before.
 
 #### Acquiring a Publication from an LCPL
 
