@@ -2,6 +2,30 @@
 
 All migration steps necessary in reading apps to upgrade to major versions of the Kotlin Readium toolkit will be documented in this file.
 
+## [2.0.0-beta.1](https://github.com/readium/r2-testapp-kotlin/compare/2.2.0-alpha.2...2.2.0-beta.1)
+
+The version 2.0.0-beta.1 is mostly stabilizing the new APIs and fixing existing bugs. We also upgraded the libraries to be compatible with Kotlin 1.4 and Gradle 4.1.
+
+### Replacing `Format` by `MediaType`
+
+To simplify the new format API, [we merged `Format` into `MediaType`](https://github.com/readium/architecture/pull/145) to offer a single interface. If you were using `Format`, you should be able to replace it by `MediaType` seamlessly.
+
+### Replacing `File` by `FileAsset`
+
+[`Streamer.open()` is now expecting an implementation of `PublicationAsset`](https://github.com/readium/architecture/pull/147) instead of an instance of `File`. This allows to open publications which are not represented as files on the device. For example a stream, an URL or any other custom structure.
+
+Readium ships with a default implementation named `FileAsset` replacing the previous `File` type. The API is the same so you can just replace `File` by `FileAsset` in your project.
+
+### Support for display cutouts
+
+This new version is now compatible with [display cutouts](https://developer.android.com/guide/topics/display-cutout). However, [this is an opt-in feature](https://github.com/readium/r2-navigator-kotlin/pull/184). To support display cutouts, follow these instructions:
+
+ * **IMPORTANT**: You need to remove any `setPadding()` statement from your app in `UserSettings.kt`, if you copied it from the test app.
+* If you embed a navigator fragment (e.g. `EpubNavigatorFragment`) yourself, you need to opt-in by [specifying the `layoutInDisplayCutoutMode`](https://developer.android.com/guide/topics/display-cutout#choose_how_your_app_handles_cutout_areas) of the host `Activity`.
+* `R2EpubActivity` and `R2CbzActivity` automatically apply `LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES` to their window's `layoutInDisplayCutoutMode`.
+* `PdfNavigatorFragment` is not yet compatible with display cutouts, because of limitations from the underlying PDF viewer.
+
+
 ## 2.0.0-alpha.2
 
 The 2.0.0 introduces numerous new APIs in the Shared Models, Streamer and LCP libraries, which are detailed in the following proposals. We highly recommend skimming over the "Developer Guide" section of each proposal before upgrading to this new major version.
