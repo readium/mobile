@@ -2,6 +2,58 @@
 
 All migration steps necessary in reading apps to upgrade to major versions of the Kotlin Readium toolkit will be documented in this file.
 
+## [2.0.0-beta.2](https://github.com/readium/r2-testapp-kotlin/compare/2.2.0-beta.1...2.2.0-beta.2)
+
+This new beta is the last one before the final 2.0.0 release. It is mostly focused on bug fixes but we also adjusted the LCP and HTTP server APIs before setting it in stone for the 2.x versions.
+
+### Serving publications with the HTTP server
+
+The API used to serve `Publication` resources with the Streamer's HTTP server was simplified. See the test app changes [in PR #387](https://github.com/readium/r2-testapp-kotlin/pull/387/files).
+
+Replace `addEpub()` with `addPublication()`, which does not expect the publication filename anymore. If the `Publication` is servable, `addPublication()` will return its base URL. This means that you do not need to:
+
+* Call `Publication.localBaseUrlOf()` to get the base URL. Use the one returned by `addPublication()` instead.
+* Set the server port in the `$key-publicationPort` `SharedPreferences` property.
+    * If you copied the `R2ScreenReader` from the test app, you will need to update it to use directly the base URL instead of the `$key-publicationPort` property. [See this commit](https://github.com/readium/r2-testapp-kotlin/pull/388/commits/a911967094bf6699b0ae3596002716414b2795f6).
+
+`R2EpubActivity` and `R2AudiobookActivity` are expecting an additional `Intent` extra: `baseUrl`. Use the base URL returned by `addPublication()`.
+
+### LCP changes
+
+Find all the changes made in the test app related to LCP [in PR #379](https://github.com/readium/r2-testapp-kotlin/pull/379/files).
+
+#### Replacing `org.joda.time.DateTime` with `java.util.Date`
+
+We replaced all occurrences of Joda's `DateTime` with `java.util.Date` in `r2-lcp-kotlin`, to reduce the dependency on third-party libraries. You will need to update any code using `LcpLicense`. The easiest way would be to keep using Joda in your own app and create `DateTime` object from the `Date` ones. For example:
+
+```kotlin
+lcpLicense?.license?.issued?.let { DateTime(it) }
+```
+
+#### Revamped loan renew API
+
+The API to renew an LCP loan got revamped to better support renewal through a web page. You will need to implement `LcpLicense.RenewListener` to coordinate the UX interaction.
+
+##### For Material Design apps
+
+If your application fits Material Design guidelines, you may use the provided `MaterialRenewListener` implementation directly. This will only work if your theme extends a `MaterialComponents` one, for example:
+
+```xml
+<style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+```
+
+`MaterialRenewListener` expects an `ActivityResultCaller` instance for argument. Any `ComponentActivity` or `Fragment` object can be used as `ActivityResultCaller`.
+
+```kotlin
+val activity: FragmentActivity
+
+license.renewLoan(MaterialRenewListener(
+    license = lcpLicense,
+    caller = activity,
+    fragmentManager = activity.supportFragmentManager
+))
+```
+
 ## [2.0.0-beta.1](https://github.com/readium/r2-testapp-kotlin/compare/2.2.0-alpha.2...2.2.0-beta.1)
 
 The version 2.0.0-beta.1 is mostly stabilizing the new APIs and fixing existing bugs. We also upgraded the libraries to be compatible with Kotlin 1.4 and Gradle 4.1.
