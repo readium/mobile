@@ -2,6 +2,87 @@
 
 All migration steps necessary in reading apps to upgrade to major versions of the Swift Readium toolkit will be documented in this file.
 
+## [2.0.0-beta.2](https://github.com/readium/r2-testapp-swift/compare/2.2.0-beta.1...2.2.0-beta.2)
+
+This is the last beta before the final 2.0.0 release.
+
+### Using XCFrameworks to build with Xcode 12
+
+This new version requires Xcode 12 and Carthage 0.37.0 to work and is now using XCFrameworks for its dependencies. You will need to upgrade your app to use XCFrameworks as well.
+
+Migrating a project to XCFrameworks is [explained on Carthage's repository](https://github.com/Carthage/Carthage#migrating-a-project-from-framework-bundles-to-xcframeworks) and you can see [an example of how it was done in `r2-testapp-swift`](https://github.com/readium/r2-testapp-swift/commit/1a3fc2bb25f0d1cf17a60e7cdb8756a0dbb6a3f6). Here is a breakdown of the steps to follow:
+
+1. Delete your `Carthage/Build` folders to remove any existing framework bundles.
+2. Upgrade your `Cartfile` to the latest dependency versions (see `r2-testapp-swift`).
+3. Clear Carthage and Xcode's cache
+    ```shell
+    $ rm -rf ~/Library/Developer/Xcode/DerivedData
+    $ rm -rf ~/Library/Caches/org.carthage.CarthageKit
+    $ rm -rf ~/Library/Caches/carthage
+    ```
+4. Run `carthage update --use-xcframeworks --platform ios --cache-builds` to build the XCFrameworks.
+5. Remove references to the old frameworks in each of your targets:
+    * **WARNING**: `R2LCPClient.framework` is not XCFramework-ready, so you need to keep it as-is.
+    * Delete references to Carthage frameworks from the target's **Frameworks, Libraries, and Embedded Content** section and/or its **Link Binary with Libraries** build phase.
+    * Delete references to Carthage frameworks from any **Copy Files** build phases.
+    * Remove all Carthage frameworks except `R2LCPClient.framework` from the target's `carthage copy-frameworks` build phase, if present.
+6. Add references to XCFrameworks in each of your targets:
+    * In the **General** settings tab, in the **Frameworks, Libraries, and Embedded Content** section, drag and drop each XCFramework from the `Carthage/Build` folder on disk.
+
+#### Troubleshooting
+
+If after migrating to XCFrameworks you experience some build issues like **Could not find module 'R2Shared' for target 'X'**, try building the `r2-shared-swift` target with Xcode manually, before building your app. If you know of a better way to handle this, [please share it with the community](https://github.com/readium/r2-testapp-swift/issues/new).
+
+### LCP
+
+#### Providing `liblcp`/`R2LCPClient` to `r2-lcp-swift`
+
+[The dependency to `R2LCPClient.framework` was removed from `r2-lcp-swift`](https://github.com/readium/r2-lcp-swift/pull/112), which means:
+  * Now `r2-lcp-swift` works as a regular Carthage dependency, you do not need to use a submodule anymore.
+  * You do not need to modify `r2-lcp-swift`'s `Cartfile` anymore to add the private `liblcp` dependency.
+
+However, you must provide a `R2LCPClient` facade to `LCPService` in your app. [See `r2-lcp-swift`'s README for up-to-date explanation](https://github.com/readium/r2-lcp-swift) or use the following snippet.
+
+```swift
+import R2LCPClient
+import ReadiumLCP
+
+let lcpService = LCPService(client: LCPClient())
+
+/// Facade to the private R2LCPClient.framework.
+class LCPClient: ReadiumLCP.LCPClient {
+
+    func createContext(jsonLicense: String, hashedPassphrase: String, pemCrl: String) throws -> LCPClientContext {
+        return try R2LCPClient.createContext(jsonLicense: jsonLicense, hashedPassphrase: hashedPassphrase, pemCrl: pemCrl)
+    }
+
+    func decrypt(data: Data, using context: LCPClientContext) -> Data? {
+        return R2LCPClient.decrypt(data: data, using: context as! DRMContext)
+    }
+
+    func findOneValidPassphrase(jsonLicense: String, hashedPassphrases: [String]) -> String? {
+        return R2LCPClient.findOneValidPassphrase(jsonLicense: jsonLicense, hashedPassphrases: hashedPassphrases)
+    }
+
+}
+```
+
+##### Troubleshooting
+
+If you experience the following crash during runtime:
+
+> dyld: Library not loaded: @rpath/R2LCPClient.framework/R2LCPClient
+
+Make sure you embed the `R2LCPClient.framework` with a **Copy Carthage Frameworks** build phase. [See Carthage's README](https://github.com/Carthage/Carthage).
+
+<img alt="Carthage integration" width="500px" src="media/r2lcpclient-carthage.png"/>
+
+#### New loan renew API
+
+[The Renew Loan LCP API got revamped](https://github.com/readium/r2-lcp-swift/pull/107) to better support Web vs PUT interactions. You need to provide an implementation of `LCPRenewDelegate` to `LCPLicense::renewLoan()`. Readium ships with a default `LCPDefaultRenewDelegate` implementation using `SFSafariViewController` for web interactions.
+
+[See this commit for a migration example in `r2-testapp-swift`](https://github.com/readium/r2-testapp-swift/commit/79a00703c854a52b2272c042fd44e3bbabfeee8a).
+
 ## [2.0.0-beta.1](https://github.com/readium/r2-testapp-swift/compare/2.2.0-alpha.2...2.2.0-beta.1)
 
 The version 2.0.0-beta.1 is mostly stabilizing the new APIs and fixing existing bugs. There's only two changes which might impact your codebase.
