@@ -2,6 +2,10 @@
 
 All migration steps necessary in reading apps to upgrade to major versions of the Kotlin Readium toolkit will be documented in this file.
 
+## [2.0.0](https://github.com/readium/r2-testapp-kotlin/compare/2.2.0-beta.2...2.2.0)
+
+Nothing to change in your app to upgrade from 2.0.0-beta.2 to the final 2.0.0 release! Please follow the relevant sections if you are upgrading from an older version.
+
 ## [2.0.0-beta.2](https://github.com/readium/r2-testapp-kotlin/compare/2.2.0-beta.1...2.2.0-beta.2)
 
 This new beta is the last one before the final 2.0.0 release. It is mostly focused on bug fixes but we also adjusted the LCP and HTTP server APIs before setting it in stone for the 2.x versions.
