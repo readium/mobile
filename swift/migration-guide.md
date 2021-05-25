@@ -2,6 +2,15 @@
 
 All migration steps necessary in reading apps to upgrade to major versions of the Swift Readium toolkit will be documented in this file.
 
+## [2.0.0](https://github.com/readium/r2-testapp-swift/compare/2.2.0-beta.2...2.2.0)
+
+Nothing to change in your app to upgrade from 2.0.0-beta.2 to the final 2.0.0 release! Please follow the relevant sections if you are upgrading from an older version.
+
+R2 modules are referencing regular `.framework` files again instead of XCFrameworks, [to fix an issue with Xcode 12.5](https://github.com/readium/r2-testapp-swift/issues/351#issuecomment-829250100). No change should be needed in your app though.
+
+Note that all the APIs marked as deprecated in previous versions are now unavailable. You will need to follow the warning instructions if you were still using them.
+
+
 ## [2.0.0-beta.2](https://github.com/readium/r2-testapp-swift/compare/2.2.0-beta.1...2.2.0-beta.2)
 
 This is the last beta before the final 2.0.0 release.
