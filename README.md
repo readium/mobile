@@ -28,7 +28,7 @@ Readium Mobile is a modular project, which follows the [Readium Architecture](ht
 
 The modules are set to SDK 29 (Q4 2020) but you should be able to support down to SDK 21.
 
-* [`r2-shared-kotlin`](https://github.com/readium/r2-shared-swift) – Shared `Publication` models and utilities
+* [`r2-shared-kotlin`](https://github.com/readium/r2-shared-kotlin) – Shared `Publication` models and utilities
 * [`r2-streamer-kotlin`](https://github.com/readium/r2-streamer-kotlin) – Publication parsers and local HTTP server
 * [`r2-navigator-kotlin`](https://github.com/readium/r2-navigator-kotlin) – Plain view controllers rendering publications
 * [`r2-opds-kotlin`](https://github.com/readium/r2-opds-kotlin) – Parsers for OPDS catalog feeds
