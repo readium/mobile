@@ -19,6 +19,8 @@ Readium Mobile is a toolkit for ebooks, audiobooks and comics written in Swift &
 - [x] Search in EPUB
 - [ ] Highlights/annotations
 - [ ] TTS
+- [ ] EPUB 3 Media Overlays
+- [ ] Divina support
 
 ## Codebase
 
@@ -27,6 +29,10 @@ Readium Mobile is a modular project, which follows the [Readium Architecture](ht
 ### Readium Mobile Android
 
 The modules are set to SDK 29 (Q4 2020) but you should be able to support down to SDK 21.
+
+* [`kotlin-toolkit`](https://github.com/readium/kotlin-toolkit) – New monorepo for Readium Mobile Android.
+
+Previous versions are still available, split in different repositories:
 
 * [`r2-shared-kotlin`](https://github.com/readium/r2-shared-kotlin) – Shared `Publication` models and utilities
 * [`r2-streamer-kotlin`](https://github.com/readium/r2-streamer-kotlin) – Publication parsers and local HTTP server
@@ -41,6 +47,10 @@ A workspace aimed at easing the install of the project is provided in [`r2-works
 ### Readium Mobile iOS
 
 The toolkit currently requires iOS 10+ (Q3 2021).
+
+* [`swift-toolkit`](https://github.com/readium/swift-toolkit) – New monorepo for Readium Mobile iOS.
+
+Previous versions are still available, split in different repositories:
 
 * [`r2-shared-swift`](https://github.com/readium/r2-shared-swift) – Shared `Publication` models and utilities
 * [`r2-streamer-swift`](https://github.com/readium/r2-streamer-swift) – Publication parsers and local HTTP server
