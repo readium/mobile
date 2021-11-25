@@ -17,7 +17,7 @@ Readium Mobile is a toolkit for ebooks, audiobooks and comics written in Swift &
 - [x] FXL support
 - [x] RTL support
 - [x] Search in EPUB
-- [ ] Highlights/annotations
+- [x] Highlights/annotations
 - [ ] TTS
 - [ ] EPUB 3 Media Overlays
 - [ ] Divina support
