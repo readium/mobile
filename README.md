@@ -18,44 +18,26 @@ Readium Mobile is a toolkit for ebooks, audiobooks and comics written in Swift &
 - [x] RTL support
 - [x] Search in EPUB
 - [x] Highlights/annotations
-- [ ] TTS
+- [x] Text-to-Speech (TTS) support
 - [ ] EPUB 3 Media Overlays
 - [ ] Divina support
 
 ## Codebase
 
-Readium Mobile is a modular project, which follows the [Readium Architecture](https://github.com/readium/architecture). The different modules are found in the following repositories.
+Readium Mobile is a modular project, which follows the [Readium Architecture](https://github.com/readium/architecture).
 
-### Readium Mobile Android
+### Readium Mobile on Android and Chrome OS
 
-The modules are set to SDK 29 (Q4 2020) but you should be able to support down to SDK 21.
+The toolkit currently requires Android 5.0+.
 
-* [`kotlin-toolkit`](https://github.com/readium/kotlin-toolkit) – New monorepo for Readium Mobile Android.
+* [`kotlin-toolkit`](https://github.com/readium/kotlin-toolkit) – Monorepo for Readium Mobile in Kotlin.
 
-Previous versions are still available, split in different repositories:
+A [Test App](https://github.com/readium/kotlin-toolkit/tree/develop/test-app) demonstrates how to integrate the Kotlin toolkit in your own reading app.
 
-* [`r2-shared-kotlin`](https://github.com/readium/r2-shared-kotlin) – Shared `Publication` models and utilities
-* [`r2-streamer-kotlin`](https://github.com/readium/r2-streamer-kotlin) – Publication parsers and local HTTP server
-* [`r2-navigator-kotlin`](https://github.com/readium/r2-navigator-kotlin) – Plain view controllers rendering publications
-* [`r2-opds-kotlin`](https://github.com/readium/r2-opds-kotlin) – Parsers for OPDS catalog feeds
-* [`r2-lcp-kotlin`](https://github.com/readium/r2-lcp-kotlin) – Service and models for Readium LCP
+### Readium Mobile on iOS, iPadOS and macOS
 
-The [Test App](https://github.com/readium/r2-testapp-kotlin) demonstrates how to integrate the Readium 2 Kotlin toolkit in your own reading app.
+The toolkit currently requires iOS 11+.
 
-A workspace aimed at easing the install of the project is provided in [`r2-workspace-kotlin`](https://github.com/readium/r2-workspace-kotlin).
+* [`swift-toolkit`](https://github.com/readium/swift-toolkit) – Monorepo for Readium Mobile in Swift.
 
-### Readium Mobile iOS
-
-The toolkit currently requires iOS 10+ (Q3 2021).
-
-* [`swift-toolkit`](https://github.com/readium/swift-toolkit) – New monorepo for Readium Mobile iOS.
-
-Previous versions are still available, split in different repositories:
-
-* [`r2-shared-swift`](https://github.com/readium/r2-shared-swift) – Shared `Publication` models and utilities
-* [`r2-streamer-swift`](https://github.com/readium/r2-streamer-swift) – Publication parsers and local HTTP server
-* [`r2-navigator-swift`](https://github.com/readium/r2-navigator-swift) – Plain view controllers rendering publications
-* [`r2-opds-swift`](https://github.com/readium/r2-opds-swift) – Parsers for OPDS catalog feeds
-* [`r2-lcp-swift`](https://github.com/readium/r2-lcp-swift) – Service and models for Readium LCP
-
-The [Test App](https://github.com/readium/r2-testapp-swift) demonstrates how to integrate the Readium 2 Swift toolkit in your own reading app.
+A [Test App](https://github.com/readium/swift-toolkit/tree/develop/TestApp) demonstrates how to integrate the Swift toolkit in your own reading app.
