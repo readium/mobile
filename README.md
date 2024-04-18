@@ -51,4 +51,4 @@ A [Test App](https://github.com/readium/swift-toolkit/tree/develop/TestApp) demo
 
 ## License
 
-Readium Mobile is available under a [BSD-3 license](https://github.com/readium/mobile/blob/main/LICENSE).
+Readium Mobile is available under a [BSD-3 license](LICENSE).
