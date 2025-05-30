@@ -2,7 +2,7 @@
 
 Readium Mobile is a toolkit for ebooks, audiobooks and comics written in Swift &amp; Kotlin.
 
-[With 60+ applications](https://github.com/readium/awesome-readium?tab=readme-ov-file#apps-based-on-readium-mobile), it's the most popular toolkit for building reading applications on smartphones and tablets.
+[With 100+ applications](https://github.com/readium/awesome-readium?tab=readme-ov-file#apps-based-on-readium-mobile), it's the most popular toolkit for building reading applications on smartphones and tablets.
 
 ## Formats
 
